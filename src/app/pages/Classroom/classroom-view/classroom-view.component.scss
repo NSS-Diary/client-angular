@@ -9,11 +9,12 @@ table {
   font-size: 14px;
   width: 100%;
 }
-
-td,
-th {
-  width: 25%;
+.enrolledTable {
+  .mat-column-id {
+    flex: 0 0 2% !important;
+  }
 }
+
 .container {
   margin: 10px;
 }

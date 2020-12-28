@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,6 +10,7 @@ import { User } from 'src/app/shared/models/service-response/auth-response.model
 import {
   ActivitiesListResponse,
   ClassroomListResponse,
+  EnrolledActivityListResponse,
   NotificationListResponse,
 } from 'src/app/shared/models/service-response/classroom-response.model';
 import { UserListResponse } from 'src/app/shared/models/service-response/user-response';
@@ -23,11 +24,12 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./classroom-view.component.scss'],
 })
 export class ClassroomViewComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
+  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
   user: User;
   users: MatTableDataSource<UserListResponse> = new MatTableDataSource();
+  enrolledActivities: MatTableDataSource<EnrolledActivityListResponse> = new MatTableDataSource();
   displayedColumns: string[] = [
     'id',
     'name',
@@ -35,6 +37,15 @@ export class ClassroomViewComponent implements OnInit {
     'email',
     'social',
     'farm',
+  ];
+  enrolledColumns: string[] = [
+    'id',
+    'name',
+    'type',
+    'status',
+    'hours',
+    'start_time',
+    'end_time',
   ];
   classInfo: ClassroomListResponse;
 
@@ -54,6 +65,10 @@ export class ClassroomViewComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
   });
 
+  lockActivityForm: FormGroup = new FormGroup({
+    maxStudents: new FormControl(null, [Validators.required]),
+  });
+
   constructor(
     private classroomService: ClassroomService,
     private authService: AuthService,
@@ -62,8 +77,8 @@ export class ClassroomViewComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router
   ) {
-    this.getClassroomInfo();
     this.user = this.authService.getUserDetails();
+    this.getClassroomInfo();
   }
 
   onNotifAddFormSubmit() {
@@ -131,8 +146,8 @@ export class ClassroomViewComponent implements OnInit {
               return { ...user, id: id + 1 };
             })
           );
-          this.users.paginator = this.paginator;
-          this.users.sort = this.sort;
+          this.users.paginator = this.paginator.toArray()[1];
+          this.users.sort = this.sort.toArray()[1];
         },
         (err) => {
           this.snackBar.open(err.error.errors.message, 'Error', {
@@ -142,6 +157,48 @@ export class ClassroomViewComponent implements OnInit {
           });
         }
       );
+  }
+
+  enrollStudent(id: string) {
+    this.classroomService.enrollStudent({ activity_id: id }).subscribe(
+      (res) => {
+        this.snackBar.open(res.message, 'Success', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+        });
+      },
+      (err) => {
+        this.snackBar.open('Already Enrolled', 'Error', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+        });
+      }
+    );
+  }
+
+  lockActivity(id: string) {
+    if (this.lockActivityForm.valid) {
+      this.classroomService
+        .lockActivity({ activity_id: id, ...this.lockActivityForm.value })
+        .subscribe(
+          (res) => {
+            this.snackBar.open(res.message, 'Success', {
+              duration: 3000,
+              horizontalPosition: 'end',
+              verticalPosition: 'top',
+            });
+          },
+          (err) => {
+            this.snackBar.open(err.error.errors.message, 'Error', {
+              duration: 3000,
+              horizontalPosition: 'end',
+              verticalPosition: 'top',
+            });
+          }
+        );
+    }
   }
 
   getNotifications() {
@@ -159,6 +216,28 @@ export class ClassroomViewComponent implements OnInit {
           });
         }
       );
+  }
+
+  getEnrolledActivities() {
+    this.classroomService.enrolledActivityList().subscribe(
+      (res) => {
+        console.log(res);
+        this.enrolledActivities = new MatTableDataSource(
+          res.map((user, id) => {
+            return { ...user, id: id + 1 };
+          })
+        );
+        this.enrolledActivities.paginator = this.paginator.toArray()[0];
+        this.enrolledActivities.sort = this.sort.toArray()[0];
+      },
+      (err) => {
+        this.snackBar.open(err.error.errors.message, 'Error', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+        });
+      }
+    );
   }
 
   getActivities() {
@@ -191,7 +270,11 @@ export class ClassroomViewComponent implements OnInit {
         });
         this.getNotifications();
         this.getActivities();
-        this.getStudents();
+        if (this.user.user_type === 'STUDENT') {
+          this.getEnrolledActivities();
+        } else {
+          this.getStudents();
+        }
       },
       (err) => {
         this.snackBar.open(err.error.errors.message, 'Error', {
@@ -209,6 +292,15 @@ export class ClassroomViewComponent implements OnInit {
 
     if (this.users.paginator) {
       this.users.paginator.firstPage();
+    }
+  }
+
+  applyFilterEnrolled(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.enrolledActivities.filter = filterValue.trim().toLowerCase();
+
+    if (this.enrolledActivities.paginator) {
+      this.enrolledActivities.paginator.firstPage();
     }
   }
 

@@ -17,3 +17,10 @@ export interface AddActivityRequest {
   start_time: string;
   end_time: string;
 }
+export interface LockActivityRequest {
+  activity_id: string;
+  maxStudents: number;
+}
+export interface EnrollRequest {
+  activity_id: string;
+}

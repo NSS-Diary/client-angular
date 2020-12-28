@@ -19,3 +19,13 @@ export interface ActivitiesListResponse {
   start_time: Date;
   end_time: Date;
 }
+export interface EnrolledActivityListResponse {
+  activity_id: string;
+  enrollment_id: string;
+  hours: number;
+  name: string;
+  type: string;
+  status: string;
+  start_time: Date;
+  end_time: Date;
+}
