@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from 'src/app/shared/models/service-response/auth-response.model';
@@ -9,8 +12,10 @@ import {
   ClassroomListResponse,
   NotificationListResponse,
 } from 'src/app/shared/models/service-response/classroom-response.model';
+import { UserListResponse } from 'src/app/shared/models/service-response/user-response';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ClassroomService } from 'src/app/shared/services/classroom.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-classroom-view',
@@ -18,7 +23,19 @@ import { ClassroomService } from 'src/app/shared/services/classroom.service';
   styleUrls: ['./classroom-view.component.scss'],
 })
 export class ClassroomViewComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   user: User;
+  users: MatTableDataSource<UserListResponse> = new MatTableDataSource();
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'username',
+    'email',
+    'social',
+    'farm',
+  ];
   classInfo: ClassroomListResponse;
 
   activities: ActivitiesListResponse[];
@@ -40,6 +57,7 @@ export class ClassroomViewComponent implements OnInit {
   constructor(
     private classroomService: ClassroomService,
     private authService: AuthService,
+    private userService: UserService,
     private snackBar: MatSnackBar,
     private spinner: NgxSpinnerService,
     private router: Router
@@ -76,7 +94,6 @@ export class ClassroomViewComponent implements OnInit {
   }
 
   onActivityAddFormSubmit() {
-    console.log(this.activityAddForm.value);
     if (this.activityAddForm.valid) {
       this.spinner.show();
       this.classroomService.activityAdd(this.activityAddForm.value).subscribe(
@@ -87,7 +104,7 @@ export class ClassroomViewComponent implements OnInit {
             verticalPosition: 'top',
           });
           this.spinner.hide();
-          this.getNotifications();
+          this.getActivities();
         },
         (err) => {
           this.snackBar.open(err.error.errors.message, 'Error', {
@@ -101,13 +118,38 @@ export class ClassroomViewComponent implements OnInit {
     }
   }
 
+  getStudents() {
+    this.userService
+      .userList({
+        role: 'STUDENT',
+        classroom_code: this.classInfo.classroom_code,
+      })
+      .subscribe(
+        (res) => {
+          this.users = new MatTableDataSource(
+            res.map((user, id) => {
+              return { ...user, id: id + 1 };
+            })
+          );
+          this.users.paginator = this.paginator;
+          this.users.sort = this.sort;
+        },
+        (err) => {
+          this.snackBar.open(err.error.errors.message, 'Error', {
+            duration: 3000,
+            horizontalPosition: 'end',
+            verticalPosition: 'top',
+          });
+        }
+      );
+  }
+
   getNotifications() {
     this.classroomService
       .notificationList({ classroom_code: this.classInfo.classroom_code })
       .subscribe(
         (res) => {
           this.notifications = res;
-          console.log(res);
         },
         (err) => {
           this.snackBar.open(err.error.errors.message, 'Error', {
@@ -125,7 +167,6 @@ export class ClassroomViewComponent implements OnInit {
       .subscribe(
         (res) => {
           this.activities = res;
-          console.log(res);
         },
         (err) => {
           this.snackBar.open(err.error.errors.message, 'Error', {
@@ -150,6 +191,7 @@ export class ClassroomViewComponent implements OnInit {
         });
         this.getNotifications();
         this.getActivities();
+        this.getStudents();
       },
       (err) => {
         this.snackBar.open(err.error.errors.message, 'Error', {
@@ -159,6 +201,15 @@ export class ClassroomViewComponent implements OnInit {
         });
       }
     );
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.users.filter = filterValue.trim().toLowerCase();
+
+    if (this.users.paginator) {
+      this.users.paginator.firstPage();
+    }
   }
 
   ngOnInit(): void {}

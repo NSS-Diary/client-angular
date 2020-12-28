@@ -2,6 +2,8 @@ export interface UserListResponse {
   username: string;
   name: string;
   email: string;
+  farm_hours?: number;
+  social_hours?: number;
 }
 
 export interface UserMeResponse {
