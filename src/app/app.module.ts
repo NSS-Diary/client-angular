@@ -15,6 +15,7 @@ import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PagesComponent } from './pages/pages.component';
 import { CAdminListComponent } from './pages/cadmin-list/cadmin-list.component';
+import { ClassroomAddComponent } from './pages/Classroom/classroom-add/classroom-add.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CAdminListComponent } from './pages/cadmin-list/cadmin-list.component';
     DashboardComponent,
     PagesComponent,
     CAdminListComponent,
+    ClassroomAddComponent,
   ],
   imports: [
     BrowserModule,

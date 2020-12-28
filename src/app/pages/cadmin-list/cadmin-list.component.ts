@@ -27,6 +27,7 @@ export class CAdminListComponent implements OnInit {
     email: new FormControl('', [Validators.required]),
     user_type: new FormControl('', [Validators.required]),
   });
+  hide = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

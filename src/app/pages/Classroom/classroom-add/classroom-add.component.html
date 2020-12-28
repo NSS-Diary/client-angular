@@ -1,0 +1,33 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <form
+        id="classroomAddForm"
+        [formGroup]="classroomAddForm"
+        (ngSubmit)="onClassroomAddFormSubmit()"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Classroom Name</mat-label>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Classroom Name..."
+            formControlName="classroomName"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Admin Name</mat-label>
+          <mat-select formControlName="adminName">
+            <mat-option *ngFor="let admin of admins" value="{{admin.username}}"
+              >{{ admin.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">
+          Add Classroom
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

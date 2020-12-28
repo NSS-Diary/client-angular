@@ -7,6 +7,7 @@ import { RoleGuard } from './shared/guards/role.guard';
 import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CAdminListComponent } from './pages/cadmin-list/cadmin-list.component';
+import { ClassroomAddComponent } from './pages/Classroom/classroom-add/classroom-add.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
       {
         path: 'users/list',
         component: CAdminListComponent,
+        data: { roles: ['SUPER_ADMIN'] },
+      },
+      {
+        path: 'classroom/add',
+        component: ClassroomAddComponent,
         data: { roles: ['SUPER_ADMIN'] },
       },
       {
