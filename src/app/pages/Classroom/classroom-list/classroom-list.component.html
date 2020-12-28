@@ -1,0 +1,18 @@
+<div class="container">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Mia"
+      #input
+    />
+  </mat-form-field>
+  <div class="cardContainer">
+    <mat-card *ngFor="let class of dataSource.filteredData">
+      <h1>{{class.name}}</h1>
+      <h3>Admin: {{class.admin_name}}</h3>
+      <h4>Code: {{class.classroom_code}}</h4>
+    </mat-card>
+  </div>
+</div>

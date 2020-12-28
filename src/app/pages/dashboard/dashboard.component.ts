@@ -12,6 +12,9 @@ export class DashboardComponent implements OnInit {
   user: User;
   constructor(private authService: AuthService, private router: Router) {
     this.user = this.authService.getUserDetails();
+    if (this.user.user_type === 'CLASSROOM_ADMIN') {
+      this.router.navigate(['/classroom/list']);
+    }
   }
 
   ngOnInit(): void {}

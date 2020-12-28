@@ -8,6 +8,7 @@ import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CAdminListComponent } from './pages/cadmin-list/cadmin-list.component';
 import { ClassroomAddComponent } from './pages/Classroom/classroom-add/classroom-add.component';
+import { ClassroomListComponent } from './pages/Classroom/classroom-list/classroom-list.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
         path: 'classroom/add',
         component: ClassroomAddComponent,
         data: { roles: ['SUPER_ADMIN'] },
+      },
+      {
+        path: 'classroom/list',
+        component: ClassroomListComponent,
+        data: { roles: ['SUPER_ADMIN', 'CLASSROOM_ADMIN'] },
       },
       {
         path: '',
