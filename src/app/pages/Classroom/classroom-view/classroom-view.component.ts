@@ -76,6 +76,7 @@ export class ClassroomViewComponent implements OnInit {
   }
 
   onActivityAddFormSubmit() {
+    console.log(this.activityAddForm.value);
     if (this.activityAddForm.valid) {
       this.spinner.show();
       this.classroomService.activityAdd(this.activityAddForm.value).subscribe(
@@ -142,6 +143,9 @@ export class ClassroomViewComponent implements OnInit {
       (res) => {
         this.classInfo = res[0];
         this.notificationAddForm.patchValue({
+          classroom_code: this.classInfo.classroom_code,
+        });
+        this.activityAddForm.patchValue({
           classroom_code: this.classInfo.classroom_code,
         });
         this.getNotifications();

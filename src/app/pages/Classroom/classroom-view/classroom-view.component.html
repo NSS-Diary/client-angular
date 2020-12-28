@@ -72,6 +72,71 @@
         </mat-accordion>
       </div>
     </mat-tab>
+    <mat-tab label="Add Activity" *ngIf="user.user_type !== 'STUDENT'">
+      <div class="tab-container">
+        <div class="formCardContainer">
+          <mat-card>
+            <mat-card-content>
+              <form
+                id="activityAddForm"
+                [formGroup]="activityAddForm"
+                (ngSubmit)="onActivityAddFormSubmit()"
+              >
+                <mat-form-field appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Name..."
+                    formControlName="name"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>User Role</mat-label>
+                  <mat-select formControlName="type">
+                    <mat-option value="FARM">Farm</mat-option>
+                    <mat-option value="SOCIAL">Social</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <input
+                    matInput
+                    appearance="outline"
+                    [ngxMatDatetimePicker]="picker"
+                    placeholder="Choose a date"
+                    formControlName="start_time"
+                    [disabled]="disabled"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker> </ngx-mat-datetime-picker>
+                </mat-form-field>
+                <mat-form-field>
+                  <input
+                    matInput
+                    appearance="outline"
+                    [ngxMatDatetimePicker]="picker2"
+                    placeholder="Choose a date"
+                    formControlName="end_time"
+                    [disabled]="disabled"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker2"
+                  ></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker2> </ngx-mat-datetime-picker>
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit">
+                  Add
+                </button>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
     <mat-tab label="Enrolled Activities" *ngIf="user.user_type === 'STUDENT'"
       >Content 3</mat-tab
     >
