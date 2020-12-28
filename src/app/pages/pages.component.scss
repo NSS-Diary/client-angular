@@ -1,1 +1,12 @@
 @import "../shared/utils/globalColors.scss";
+
+.container {
+  height: 100%;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+button {
+  margin: 10px;
+  background-color: $secondary !important;
+}

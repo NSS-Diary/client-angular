@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+}
+.tab-container {
+  padding: 10px;
+  padding-bottom: 30px;
+}
+
+.group {
+  display: flex;
+  justify-content: space-between;
+  .mat-form-field {
+    width: 48%;
+  }
+}
+.mat-toolbar {
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+.container {
+  margin: 30px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}

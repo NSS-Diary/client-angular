@@ -26,9 +26,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   exports: [
+    MatTabsModule,
+    MatToolbarModule,
     MatStepperModule,
     MatSnackBarModule,
     MatRippleModule,

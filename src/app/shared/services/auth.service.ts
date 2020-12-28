@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { SignInRequest } from '../models/service-request/auth-request.model';
+import {
+  SignInRequest,
+  SignUpRequest,
+} from '../models/service-request/auth-request.model';
 import {
   SignInResponse,
   User,
@@ -20,6 +23,13 @@ export class AuthService {
   public signIn(form: SignInRequest) {
     return this.http.post<SignInResponse>(
       `${this.apiEndpoint}/api/auth/signin`,
+      form
+    );
+  }
+
+  public signUp(form: SignUpRequest) {
+    return this.http.post<SignInResponse>(
+      `${this.apiEndpoint}/api/auth/signup`,
       form
     );
   }

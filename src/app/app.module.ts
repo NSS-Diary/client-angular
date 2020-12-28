@@ -11,9 +11,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppInterceptor } from './shared/utils/app-network-interceptor';
 
 import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
+import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PagesComponent } from './pages/pages.component';
+import { CAdminListComponent } from './pages/cadmin-list/cadmin-list.component';
 
 @NgModule({
-  declarations: [AppComponent, SignInComponent],
+  declarations: [
+    AppComponent,
+    SignInComponent,
+    SignUpComponent,
+    DashboardComponent,
+    PagesComponent,
+    CAdminListComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

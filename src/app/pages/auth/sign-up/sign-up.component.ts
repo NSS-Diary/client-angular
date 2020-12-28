@@ -5,14 +5,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss'],
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss'],
 })
-export class SignInComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({
+export class SignUpComponent implements OnInit {
+  signupForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    classroom_code: new FormControl('', [Validators.required]),
   });
   hide = true;
 
@@ -20,15 +23,11 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
-  ) {
-    if (this.authService.validateLogin()) {
-      this.router.navigate(['']);
-    }
-  }
+  ) {}
 
-  onLoginFormSubmit() {
-    if (this.loginForm.valid) {
-      this.authService.signIn(this.loginForm.value).subscribe(
+  onSignupFormSubmit() {
+    if (this.signupForm.valid) {
+      this.authService.signUp(this.signupForm.value).subscribe(
         (res) => {
           console.log(res);
         },

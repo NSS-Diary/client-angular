@@ -1,0 +1,89 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <img
+        mat-card-image
+        src="../../../assets/Logo.png"
+        alt="Photo of a Shiba Inu"
+      />
+    </mat-card-header>
+    <mat-card-content>
+      <form
+        id="loginForm"
+        [formGroup]="signupForm"
+        (ngSubmit)="onSignupFormSubmit()"
+      >
+        <div class="group">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <input
+              type="text"
+              matInput
+              placeholder="Username..."
+              formControlName="username"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <mat-icon matSuffix>email</mat-icon>
+            <input
+              type="text"
+              matInput
+              placeholder="Email..."
+              formControlName="email"
+            />
+          </mat-form-field>
+        </div>
+        <div class="group">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <input
+              type="text"
+              matInput
+              placeholder="Name..."
+              formControlName="name"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              [type]="hide ? 'password' : 'text'"
+              matInput
+              placeholder="Password..."
+              formControlName="password"
+            />
+            <mat-icon matSuffix (click)="hide = !hide" class="passwordToggle"
+              >{{ hide ? "visibility_off" : "visibility" }}
+            </mat-icon>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Classroom Code</mat-label>
+          <mat-icon matSuffix>lock</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Code..."
+            formControlName="classroom_code"
+          />
+        </mat-form-field>
+
+        <div class="buttons">
+          <button mat-raised-button color="primary" type="submit">
+            Register
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            [routerLink]="['/sign-in']"
+          >
+            Already have Account?
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -52,7 +52,8 @@ export class AppInterceptor implements HttpInterceptor {
           if (
             event instanceof HttpResponse &&
             event.url &&
-            event.url.endsWith('/auth/signin')
+            (event.url.endsWith('/auth/signin') ||
+              event.url.endsWith('/auth/signup'))
           ) {
             if (event.body.user.hasOwnProperty('username')) {
               this.authService.updateToken(event.body.token);

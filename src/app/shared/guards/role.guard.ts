@@ -32,7 +32,7 @@ export class RoleGuard implements CanActivateChild {
     if (this.user && roles.includes(this.user.user_type)) {
       return true;
     } else {
-      this.router.navigate(['/visit/list']);
+      this.router.navigate(['']);
       return false;
     }
   }
