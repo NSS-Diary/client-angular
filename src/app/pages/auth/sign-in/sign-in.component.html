@@ -1,0 +1,49 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <img
+        mat-card-image
+        src="../../../assets/Logo.png"
+        alt="Photo of a Shiba Inu"
+      />
+    </mat-card-header>
+    <mat-card-content>
+      <form
+        id="loginForm"
+        [formGroup]="loginForm"
+        (ngSubmit)="onLoginFormSubmit()"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <input
+            type="text"
+            matInput
+            placeholder="Username..."
+            formControlName="username"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            [type]="hide ? 'password' : 'text'"
+            matInput
+            placeholder="Password..."
+            formControlName="password"
+          />
+          <mat-icon matSuffix (click)="hide = !hide" class="passwordToggle"
+            >{{ hide ? "visibility_off" : "visibility" }}
+          </mat-icon>
+          <mat-hint
+            align="end"
+            style="cursor: pointer; outline: 0"
+            [routerLink]="['/forgot']"
+          >
+            Forgot Password?
+          </mat-hint>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Log In</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

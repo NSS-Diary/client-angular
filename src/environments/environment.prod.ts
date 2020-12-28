@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  apiEndpoint: 'http://nss-db.nikhilrajesh.com',
+  production: true,
 };

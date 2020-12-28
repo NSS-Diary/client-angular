@@ -1,1 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Roboto&display=swap");
+@import "./app/shared/utils/globalColors.scss";
+
+html,
+body,
+app-root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+* {
+  font-family: "Roboto", sans-serif;
+}
+body,
+mat-drawer-content {
+  background-color: $background;
+}
+
+//Class for dialogs with no margin and padding
+.no-margin-dialog-container .mat-dialog-container {
+  padding: 0px;
+  margin: 0px;
+}
+
+//Mat-card border radius and color
+mat-card {
+  border: 1px solid #dfe0eb;
+  border-radius: 8px;
+  .mat-card-header-text {
+    margin: 7px;
+  }
+  .mat-row {
+    border-bottom: 1px solid #dfe0eb !important;
+  }
+}
+
+//Mat Dialog Background Color
+.mat-dialog-container {
+  background-color: $background !important;
+}
+
+//Spacer in flex containers
+.spacer {
+  flex: 1 1 auto;
+}
+
+//To remove padding-bottom in mat-form-field
+.removePaddingField .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+//Icon color fill change
+.sideLink:hover svg path,
+.iconSelected svg path {
+  fill: #009688 !important;
+}
+
+//Form field suffix
+.fieldSuffix .mat-form-field-flex {
+  align-items: center;
+}
+
+//Slick Carousel Styles
+.slick-prev:before,
+.slick-next:before {
+  color: #9a9a9a;
+}

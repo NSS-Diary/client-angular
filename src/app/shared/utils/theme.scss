@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+
+@mixin theme-color-grabber($theme) {
+  // Parse the theme and create variables for each color in the pallete
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  // Create theme specfic styles
+  .primaryColorBG {
+    background-color: mat-color($primary);
+  }
+  .accentColorBG {
+    background-color: mat-color($accent);
+  }
+  .warnColorBG {
+    background-color: mat-color($warn);
+  }
+}
+
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-teal);
+$my-app-accent: mat-palette($mat-deep-orange, 500, 900, A100);
+$my-app-warn: mat-palette($mat-red);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include theme-color-grabber($my-app-theme);
+@include angular-material-theme($my-app-theme);
