@@ -17,6 +17,7 @@ import { PagesComponent } from './pages/pages.component';
 import { CAdminListComponent } from './pages/cadmin-list/cadmin-list.component';
 import { ClassroomAddComponent } from './pages/Classroom/classroom-add/classroom-add.component';
 import { ClassroomListComponent } from './pages/Classroom/classroom-list/classroom-list.component';
+import { ClassroomViewComponent } from './pages/Classroom/classroom-view/classroom-view.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ClassroomListComponent } from './pages/Classroom/classroom-list/classro
     CAdminListComponent,
     ClassroomAddComponent,
     ClassroomListComponent,
+    ClassroomViewComponent,
   ],
   imports: [
     BrowserModule,

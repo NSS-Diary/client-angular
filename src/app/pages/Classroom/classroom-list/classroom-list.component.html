@@ -9,7 +9,10 @@
     />
   </mat-form-field>
   <div class="cardContainer">
-    <mat-card *ngFor="let class of dataSource.filteredData">
+    <mat-card
+      *ngFor="let class of dataSource.filteredData"
+      (click)="routeTo(class.classroom_code)"
+    >
       <h1>{{class.name}}</h1>
       <h3>Admin: {{class.admin_name}}</h3>
       <h4>Code: {{class.classroom_code}}</h4>

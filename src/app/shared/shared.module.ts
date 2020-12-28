@@ -27,9 +27,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   exports: [
+    MatExpansionModule,
     MatTabsModule,
     MatToolbarModule,
     MatStepperModule,

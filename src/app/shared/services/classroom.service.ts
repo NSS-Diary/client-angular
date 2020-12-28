@@ -3,8 +3,15 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonResponse } from '../models/service-response/common-response.model';
-import { ClassroomAddRequest } from '../models/service-request/classroom-request.model';
-import { ClassroomListResponse } from '../models/service-response/classroom-response.model';
+import {
+  AddNotificationRequest,
+  ClassroomAddRequest,
+  ClassroomInfoRequest,
+} from '../models/service-request/classroom-request.model';
+import {
+  ClassroomListResponse,
+  NotificationListResponse,
+} from '../models/service-response/classroom-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +28,29 @@ export class ClassroomService {
   }
 
   public classroomAdd(form: ClassroomAddRequest) {
-    console.log(form);
     return this.http.post<CommonResponse>(
       `${this.apiEndpoint}/api/classroom/add`,
+      form
+    );
+  }
+
+  public notificationAdd(form: AddNotificationRequest) {
+    return this.http.post<CommonResponse>(
+      `${this.apiEndpoint}/api/classroom/notification/add`,
+      form
+    );
+  }
+
+  public classroomInfo(form: ClassroomInfoRequest) {
+    return this.http.post<ClassroomListResponse[]>(
+      `${this.apiEndpoint}/api/classroom/info`,
+      form
+    );
+  }
+
+  public notificationList(form: ClassroomInfoRequest) {
+    return this.http.post<NotificationListResponse[]>(
+      `${this.apiEndpoint}/api/classroom/notification/list`,
       form
     );
   }

@@ -1,0 +1,35 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.container {
+  margin: 10px;
+}
+.tab-container {
+  padding: 10px;
+  padding-bottom: 30px;
+}
+.formCardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mat-card {
+    margin-top: 100px;
+    min-width: 400px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    mat-icon:hover {
+      cursor: pointer;
+    }
+    .buttons {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      button {
+        margin: 20px;
+      }
+    }
+  }
+}
