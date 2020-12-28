@@ -26,6 +26,16 @@ export class ClassroomService {
 
   constructor(public http: HttpClient, public router: Router) {}
 
+  public uploadProof(id: string, file: File) {
+    const fd = new FormData();
+    fd.append('proof', file);
+    fd.append('enrollment_id', id);
+    return this.http.post(
+      `${this.apiEndpoint}/api/classroom/activities/upload`,
+      fd
+    );
+  }
+
   public classroomList() {
     return this.http.get<ClassroomListResponse[]>(
       `${this.apiEndpoint}/api/classroom/list`

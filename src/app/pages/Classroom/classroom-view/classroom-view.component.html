@@ -229,6 +229,21 @@
                 {{row.end_time | date: 'medium'}}
               </td>
             </ng-container>
+            <ng-container matColumnDef="upload">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Upload Proof
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <button
+                  *ngIf="row.enrollment_id === 'ENROLLED'"
+                  mat-icon-button
+                  color="warn"
+                  (click)="uploadProof(row.enrollment_id)"
+                >
+                  <mat-icon>upload</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="enrolledColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: enrolledColumns;"></tr>

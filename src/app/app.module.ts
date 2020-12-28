@@ -23,6 +23,7 @@ import { CAdminListComponent } from './pages/cadmin-list/cadmin-list.component';
 import { ClassroomAddComponent } from './pages/Classroom/classroom-add/classroom-add.component';
 import { ClassroomListComponent } from './pages/Classroom/classroom-list/classroom-list.component';
 import { ClassroomViewComponent } from './pages/Classroom/classroom-view/classroom-view.component';
+import { UploadProofComponent } from './pages/Classroom/classroom-view/upload-proof/upload-proof.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ClassroomViewComponent } from './pages/Classroom/classroom-view/classro
     ClassroomAddComponent,
     ClassroomListComponent,
     ClassroomViewComponent,
+    UploadProofComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,5 +54,6 @@ import { ClassroomViewComponent } from './pages/Classroom/classroom-view/classro
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
+  entryComponents: [UploadProofComponent],
 })
 export class AppModule {}

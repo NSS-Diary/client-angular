@@ -1,5 +1,6 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -17,6 +18,7 @@ import { UserListResponse } from 'src/app/shared/models/service-response/user-re
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ClassroomService } from 'src/app/shared/services/classroom.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { UploadProofComponent } from './upload-proof/upload-proof.component';
 
 @Component({
   selector: 'app-classroom-view',
@@ -46,6 +48,7 @@ export class ClassroomViewComponent implements OnInit {
     'hours',
     'start_time',
     'end_time',
+    'upload',
   ];
   classInfo: ClassroomListResponse;
 
@@ -75,10 +78,17 @@ export class ClassroomViewComponent implements OnInit {
     private userService: UserService,
     private snackBar: MatSnackBar,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.user = this.authService.getUserDetails();
     this.getClassroomInfo();
+  }
+
+  uploadProof(id: string) {
+    const dialogRef = this.dialog.open(UploadProofComponent, {
+      data: id,
+    });
   }
 
   onNotifAddFormSubmit() {
@@ -189,6 +199,7 @@ export class ClassroomViewComponent implements OnInit {
               horizontalPosition: 'end',
               verticalPosition: 'top',
             });
+            this.getActivities();
           },
           (err) => {
             this.snackBar.open(err.error.errors.message, 'Error', {

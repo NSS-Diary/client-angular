@@ -1,0 +1,24 @@
+<form
+  id="uploadProofForm"
+  [formGroup]="uploadProofForm"
+  (ngSubmit)="uploadProof()"
+>
+  <label class="file">
+    <input
+      type="file"
+      id="file"
+      aria-label="File browser example"
+      formControlName="file"
+      (change)="onFileUpload($event)"
+    />
+    <span class="file-custom" [attr.data-before]="fileName"></span>
+  </label>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    class="button is-danger"
+  >
+    Upload
+  </button>
+</form>

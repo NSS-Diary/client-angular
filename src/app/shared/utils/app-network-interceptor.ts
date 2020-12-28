@@ -22,13 +22,9 @@ export class AppInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     if (
-      !(
-        req.url.endsWith('/auth/signin') ||
-        req.url.endsWith('/user/forgot-password') ||
-        req.url.endsWith('/user/confirm-reset')
-      )
+      !(req.url.endsWith('/auth/signin') || req.url.endsWith('/auth/signup'))
     ) {
-      if (req.method === 'POST' && !req.url.endsWith('/visit/create')) {
+      if (req.method === 'POST' && !req.url.endsWith('/upload')) {
         const headers = new HttpHeaders({
           Authorization: 'Bearer ' + this.authService.getToken(),
           'Content-Type': 'application/json',
