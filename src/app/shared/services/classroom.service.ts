@@ -4,11 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonResponse } from '../models/service-response/common-response.model';
 import {
+  AddActivityRequest,
   AddNotificationRequest,
   ClassroomAddRequest,
   ClassroomInfoRequest,
 } from '../models/service-request/classroom-request.model';
 import {
+  ActivitiesListResponse,
   ClassroomListResponse,
   NotificationListResponse,
 } from '../models/service-response/classroom-response.model';
@@ -51,6 +53,19 @@ export class ClassroomService {
   public notificationList(form: ClassroomInfoRequest) {
     return this.http.post<NotificationListResponse[]>(
       `${this.apiEndpoint}/api/classroom/notification/list`,
+      form
+    );
+  }
+
+  public activityList(form: ClassroomInfoRequest) {
+    return this.http.post<ActivitiesListResponse[]>(
+      `${this.apiEndpoint}/api/classroom/activities/list`,
+      form
+    );
+  }
+  public activityAdd(form: AddActivityRequest) {
+    return this.http.post<CommonResponse>(
+      `${this.apiEndpoint}/api/classroom/activities/add`,
       form
     );
   }

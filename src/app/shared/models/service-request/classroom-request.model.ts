@@ -10,3 +10,10 @@ export interface AddNotificationRequest {
   classroom_code: string;
   description: string;
 }
+export interface AddActivityRequest {
+  classroom_code: string;
+  name: string;
+  type: string;
+  start_time: string;
+  end_time: string;
+}

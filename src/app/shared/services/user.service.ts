@@ -6,7 +6,10 @@ import {
   UserListRequest,
   UserAddRequest,
 } from '../models/service-request/user-request';
-import { UserListResponse } from '../models/service-response/user-response';
+import {
+  UserListResponse,
+  UserMeResponse,
+} from '../models/service-response/user-response';
 import { CommonResponse } from '../models/service-response/common-response.model';
 
 @Injectable({
@@ -22,6 +25,10 @@ export class UserService {
       `${this.apiEndpoint}/api/user/list`,
       form
     );
+  }
+
+  public me() {
+    return this.http.get<UserMeResponse>(`${this.apiEndpoint}/api/user/me`);
   }
 
   public userAdd(form: UserAddRequest) {

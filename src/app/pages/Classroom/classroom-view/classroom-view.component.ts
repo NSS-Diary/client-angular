@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from 'src/app/shared/models/service-response/auth-response.model';
 import {
+  ActivitiesListResponse,
   ClassroomListResponse,
   NotificationListResponse,
 } from 'src/app/shared/models/service-response/classroom-response.model';
@@ -19,6 +20,16 @@ import { ClassroomService } from 'src/app/shared/services/classroom.service';
 export class ClassroomViewComponent implements OnInit {
   user: User;
   classInfo: ClassroomListResponse;
+
+  activities: ActivitiesListResponse[];
+  activityAddForm: FormGroup = new FormGroup({
+    classroom_code: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    start_time: new FormControl('', [Validators.required]),
+    end_time: new FormControl('', [Validators.required]),
+  });
+
   notifications: NotificationListResponse[];
   notificationAddForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -64,12 +75,55 @@ export class ClassroomViewComponent implements OnInit {
     }
   }
 
+  onActivityAddFormSubmit() {
+    if (this.activityAddForm.valid) {
+      this.spinner.show();
+      this.classroomService.activityAdd(this.activityAddForm.value).subscribe(
+        (res) => {
+          this.snackBar.open(res.message, 'Success', {
+            duration: 3000,
+            horizontalPosition: 'end',
+            verticalPosition: 'top',
+          });
+          this.spinner.hide();
+          this.getNotifications();
+        },
+        (err) => {
+          this.snackBar.open(err.error.errors.message, 'Error', {
+            duration: 3000,
+            horizontalPosition: 'end',
+            verticalPosition: 'top',
+          });
+          this.spinner.hide();
+        }
+      );
+    }
+  }
+
   getNotifications() {
     this.classroomService
       .notificationList({ classroom_code: this.classInfo.classroom_code })
       .subscribe(
         (res) => {
           this.notifications = res;
+          console.log(res);
+        },
+        (err) => {
+          this.snackBar.open(err.error.errors.message, 'Error', {
+            duration: 3000,
+            horizontalPosition: 'end',
+            verticalPosition: 'top',
+          });
+        }
+      );
+  }
+
+  getActivities() {
+    this.classroomService
+      .activityList({ classroom_code: this.classInfo.classroom_code })
+      .subscribe(
+        (res) => {
+          this.activities = res;
           console.log(res);
         },
         (err) => {
@@ -91,6 +145,7 @@ export class ClassroomViewComponent implements OnInit {
           classroom_code: this.classInfo.classroom_code,
         });
         this.getNotifications();
+        this.getActivities();
       },
       (err) => {
         this.snackBar.open(err.error.errors.message, 'Error', {

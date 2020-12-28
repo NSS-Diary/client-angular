@@ -58,7 +58,20 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Activities">Content 2</mat-tab>
+    <mat-tab label="Activities">
+      <div class="tab-container">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let activity of activities">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{activity.type}}</mat-panel-title>
+              <mat-panel-description>{{ activity.name}} </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p><b>Start Time :</b> {{activity.start_time | date: 'medium'}}</p>
+            <p><b>End Time :</b> {{activity.end_time | date: 'medium'}}</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </mat-tab>
     <mat-tab label="Enrolled Activities" *ngIf="user.user_type === 'STUDENT'"
       >Content 3</mat-tab
     >
