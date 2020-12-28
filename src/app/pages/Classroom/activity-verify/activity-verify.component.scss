@@ -1,0 +1,25 @@
+.container {
+  margin: 20px;
+}
+.mat-form-field {
+  width: 100%;
+  margin: 0 10px;
+}
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.mat-card {
+  max-width: 200px;
+  margin: 10px;
+  cursor: pointer;
+  outline: 0;
+  img {
+    width: 180px;
+  }
+
+  h4,
+  h3 {
+    margin: 0;
+  }
+}

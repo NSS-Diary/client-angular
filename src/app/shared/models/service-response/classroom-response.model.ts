@@ -29,3 +29,12 @@ export interface EnrolledActivityListResponse {
   start_time: Date;
   end_time: Date;
 }
+export interface VerificationListResponse {
+  activity_id: string;
+  enrollment_id: string;
+  hours: number;
+  img_id: string;
+  img_path: string;
+  status: string;
+  student: string;
+}

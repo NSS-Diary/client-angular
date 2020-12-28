@@ -1,0 +1,36 @@
+<div class="container">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Mia"
+      #input
+    />
+  </mat-form-field>
+  <div class="cardContainer">
+    <mat-card *ngFor="let info of dataSource.filteredData">
+      <img
+        mat-card-image
+        [src]="'http://nss-db.nikhilrajesh.com/proofs/' + info.img_path"
+        alt="Photo of a Shiba Inu"
+      />
+      <h1>{{info.student}}</h1>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="verify(info.enrollment_id, 'COMPLETED')"
+      >
+        Verify
+      </button>
+      <button
+        mat-raised-button
+        style="margin-left: 10px"
+        color="primary"
+        (click)="verify(info.enrollment_id, 'REJECTED')"
+      >
+        Reject
+      </button>
+    </mat-card>
+  </div>
+</div>

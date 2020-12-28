@@ -55,7 +55,6 @@ export class UploadProofComponent implements OnInit {
             horizontalPosition: 'end',
             verticalPosition: 'top',
           });
-          this.spinner.hide();
         }
       );
     }

@@ -91,6 +91,10 @@ export class ClassroomViewComponent implements OnInit {
     });
   }
 
+  routeTo(id: string) {
+    this.router.navigate(['/classroom/verify/' + id]);
+  }
+
   onNotifAddFormSubmit() {
     if (this.notificationAddForm.valid) {
       this.spinner.show();

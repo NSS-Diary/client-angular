@@ -10,12 +10,15 @@ import {
   ClassroomInfoRequest,
   EnrollRequest,
   LockActivityRequest,
+  VerificationListRequest,
+  VerifyProof,
 } from '../models/service-request/classroom-request.model';
 import {
   ActivitiesListResponse,
   ClassroomListResponse,
   EnrolledActivityListResponse,
   NotificationListResponse,
+  VerificationListResponse,
 } from '../models/service-response/classroom-response.model';
 
 @Injectable({
@@ -66,6 +69,19 @@ export class ClassroomService {
   public notificationList(form: ClassroomInfoRequest) {
     return this.http.post<NotificationListResponse[]>(
       `${this.apiEndpoint}/api/classroom/notification/list`,
+      form
+    );
+  }
+  public verificationList(form: VerificationListRequest) {
+    return this.http.post<VerificationListResponse[]>(
+      `${this.apiEndpoint}/api/classroom/activities/verification-list`,
+      form
+    );
+  }
+
+  public verifyProof(form: VerifyProof) {
+    return this.http.post<CommonResponse>(
+      `${this.apiEndpoint}/api/classroom/activities/verify`,
       form
     );
   }

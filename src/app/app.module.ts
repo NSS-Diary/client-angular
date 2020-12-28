@@ -24,6 +24,7 @@ import { ClassroomAddComponent } from './pages/Classroom/classroom-add/classroom
 import { ClassroomListComponent } from './pages/Classroom/classroom-list/classroom-list.component';
 import { ClassroomViewComponent } from './pages/Classroom/classroom-view/classroom-view.component';
 import { UploadProofComponent } from './pages/Classroom/classroom-view/upload-proof/upload-proof.component';
+import { ActivityVerifyComponent } from './pages/Classroom/activity-verify/activity-verify.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UploadProofComponent } from './pages/Classroom/classroom-view/upload-pr
     ClassroomListComponent,
     ClassroomViewComponent,
     UploadProofComponent,
+    ActivityVerifyComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,10 @@ export interface ClassroomAddRequest {
   classroomName: string;
   adminName: string;
 }
+export interface VerifyProof {
+  enrollment_id: string;
+  status: string;
+}
 export interface ClassroomInfoRequest {
   classroom_code: string;
 }
@@ -22,5 +26,8 @@ export interface LockActivityRequest {
   maxStudents: number;
 }
 export interface EnrollRequest {
+  activity_id: string;
+}
+export interface VerificationListRequest {
   activity_id: string;
 }
